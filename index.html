@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Olympic Math Exam Studio</title>
+    <!-- Tailwind CSS CDN is kept for simplicity, though standard build usually imports it via CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Roboto', 'serif'],
+                    },
+                    animation: {
+                        'fadeIn': 'fadeIn 0.5s ease-out',
+                        'slideUp': 'slideUp 0.5s ease-out',
+                        'shine': 'shine 3s linear infinite',
+                        'zoomInSlow': 'zoomInSlow 3.5s cubic-bezier(0.1, 0, 0.1, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        shine: {
+                            '0%': { backgroundPosition: '-200% center' },
+                            '100%': { backgroundPosition: '200% center' }
+                        },
+                        zoomInSlow: {
+                            '0%': { transform: 'scale(0.8)', opacity: '0' },
+                            '20%': { opacity: '1' },
+                            '100%': { transform: 'scale(1.1)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+      window.MathJax = {
+        loader: { load: ['[tex]/ams', '[tex]/physics', '[tex]/color'] },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true,
+          processEnvironments: true,
+          macros: {
+            elip: ["\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1", 0]
+          }
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        },
+        chtml: {
+          displayAlign: 'left',
+          displayIndent: '0',
+          matchFontHeight: true,
+          scale: 1
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --math-color: #22d3ee;
+        }
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background-color: #f8fafc; 
+            margin: 0;
+            padding: 0;
+        }
+        
+        mjx-container { 
+            outline: none !important; 
+            margin: 0 !important; 
+            padding: 0 2px !important;
+            color: var(--math-color) !important;
+            transition: color 0.3s ease;
+            max-width: 100%;
+            overflow: visible !important;
+            display: inline-block;
+            vertical-align: baseline !important;
+            line-height: 0;
+        }
+
+        mjx-container[display="true"] {
+            display: block;
+            margin: 1.5em 0 !important;
+            text-align: center;
+        }
+        
+        .pro-frame {
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pro-frame::before, .pro-frame::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-color: var(--math-color);
+            border-style: solid;
+            opacity: 0.8;
+        }
+        .pro-frame::before { top: -2px; left: -2px; border-width: 4px 0 0 4px; border-radius: 12px 0 0 0; }
+        .pro-frame::after { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; border-radius: 0 0 12px 0; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+
+        .presentation-mode .custom-scrollbar::-webkit-scrollbar { width: 0px; height: 0px; }
+        .presentation-mode .custom-scrollbar {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+        }
+        
+        .math-highlight mjx-container {
+            filter: drop-shadow(0 0 1px var(--math-color));
+        }
+
+        .math-content {
+            overflow: visible;
+            word-break: break-word;
+        }
+
+        /* Shine Effect Class */
+        .text-shine {
+            background: linear-gradient(to right, #4f46e5 20%, #facc15 40%, #facc15 60%, #4f46e5 80%);
+            background-size: 200% auto;
+            color: #4f46e5;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+        
+        .text-shine-white {
+            background: linear-gradient(to right, #94a3b8 20%, #ffffff 40%, #ffffff 60%, #94a3b8 80%);
+            background-size: 200% auto;
+            color: #94a3b8;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

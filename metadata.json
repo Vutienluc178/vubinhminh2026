@@ -1,0 +1,8 @@
+{
+  "name": "Remix: VTL-2026",
+  "description": "An AI-powered specialized tool for Olympic Math teachers to analyze problem structures and generate high-quality variations.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
